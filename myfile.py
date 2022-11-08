@@ -1,14 +1,15 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+import sklearn as sk
+#from sklearn.ensemble import RandomForestClassifier
+#from sklearn.model_selection import train_test_split
+#from sklearn.preprocessing import LabelEncoder
 data=pd.read_csv('data.csv')
-rfc=RandomForestClassifier()
-le=LabelEncoder()
+rfc=sk.ensemble.RandomForestClassifier()
+le=sk.preprocessing.LabelEncoder()
 data['le']=le.fit_transform(data['label'])
-xtr,xtes,ytr,ytes=train_test_split(data.iloc[:,:7],data.iloc[:,-1])
+xtr,xtes,ytr,ytes=sk.model_selection.train_test_split(data.iloc[:,:7],data.iloc[:,-1])
 fit=rfc.fit(xtr,ytr)
 st.write(rfc.score(xtes,ytes))
 def input_fun():
